@@ -15,6 +15,25 @@ felix.use(b.json());
 felix.use(b.urlencoded({extended: false}));
 felix.listen(c.felix_fb.api_port);
 
+// define the message handlers
+function sendMsg (reqId, msg) {
+  r({
+    url: c.felix_fb.api_url,
+    qs: {access_token: c.felix_fb.api_acctkn},
+    method: 'POST',
+    json: {
+      recipient: {id: reqId},
+      message: msg,
+    }
+  }, function(error, response, body) {
+    if (error) {
+      console.log('Error sending message: ', error);
+    } else if (response.body.error) {
+      console.log('Error: ', response.body.error);
+    }
+  });
+}
+
 // define the routes now
 felix.get('/', function (req, res) {
   res.send('Hello there, this is felix, Cheif Operaional Commandant to Mr Akhil Pandey');
@@ -35,21 +54,7 @@ felix.post('/facebook', function (req, res) {
   for(i = 0; i < events.length; ++i) {
     var event = events[i]
     if((event.message) && (event.message.text)) {
-      r({
-        url: c.felix_fb.api_url,
-        qs: {access_token: c.felix_fb.api_acctkn},
-        method: 'POST',
-        json: {
-          recipient: {id: event.sender.id},
-          message: "Echo : " + event.message.text,
-        }
-      }, function(error, response, body) {
-        if (error) {
-          console.log('Error sending message: ', error);
-        } else if (response.body.error) {
-          console.log('Error: ', response.body.error);
-        }
-      });
+      sendMsg(event.sender.id, {text: "Echo: " + event.message.text});
     }
     else if(event.postback) {
       console.log(JSON.stringify(event.postback));
