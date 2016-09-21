@@ -1,0 +1,13 @@
+#files
+config.js
+test.js
+
+#folders
+node_modules/
+bower_components/
+
+#logs
+*.log
+
+#pids
+*.pid
