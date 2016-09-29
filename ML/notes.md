@@ -1,4 +1,6 @@
 ## Notes for Machine Learning with Js
+By
+Akhil Pandey
 
 The whole concept of machine learning is broadly categorized into two
 namely :
@@ -31,6 +33,18 @@ In supervised learning most of the problems that arise are mainly based
 on classification. As the name suggests classification is nothing but
 having a task being solved by classifying or categorizing it into separate
 classes.
+
+#### 1.3 Features :
+Features are nothing but aspects which we consider while breaking down an
+object that has been given to us. For suppose if we are to find out whether
+a given fruit is apple or not then features like "shape, colour, size etc"
+help us in determining the result. In machine learning features are very
+much needed for solving complex problems.
+
+#### 1.4 K nearest neighbour :
+Usually referred to as "kNN" is a supervised ML algorithm that is helpful
+in identifying the nearest neighbour of the given mystery point K. So to
+understand in a better way, let us simplify things
 
 ### 2. Unsupervised learning :
 Unsupervised learning is a learning that essentially has no additional
