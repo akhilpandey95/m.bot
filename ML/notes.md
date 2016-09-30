@@ -17,6 +17,7 @@ they come. There are some fundamental concepts in supervised learning:
 - 1.2 `classification`
 - 1.3 `features`
 - 1.4 `k nearest neighbour`
+- 1.5 `kNN algorithm`
 
 #### 1.1 Generalization :
 So when we apply the concept of supervised learning the most important
@@ -44,7 +45,22 @@ much needed for solving complex problems.
 #### 1.4 K nearest neighbour :
 Usually referred to as "kNN" is a supervised ML algorithm that is helpful
 in identifying the nearest neighbour of the given mystery point K. So to
-understand in a better way, let us simplify things
+understand in a better way, let us simplify things. So let us say we are
+given a problem where we are to identify whether the given space is a flat,
+apartment or dwelling. So we are given some training data where we know
+how much area, rooms make a particular space into a flat, apartment and
+dwelling. On applying kNN we might identify whether a given space is flat,
+apartment or dwelling. To better understand let us assume that the mystery
+point or the one which is to be identified is "k". Now if "k" has two flats
+and one apartment near to it, then k becomes a flat. This means that our
+training data helps us in determining the attribute of our mystery point.
+
+#### 1.5 kNN algorithm :
+Procedure to implement the algorithm :
+- measure the distances between the mystery point and other points
+- pick a number, usually three is good for small data sets
+- figure out the three closest points to the mystery point
+- the majority of the three closest points is the answer
 
 ### 2. Unsupervised learning :
 Unsupervised learning is a learning that essentially has no additional
