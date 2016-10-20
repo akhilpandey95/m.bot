@@ -15,7 +15,7 @@ var nodeList = function (mysterypoint) {
   this.mysterypoint = mysterypoint
 }
 
-nodeList.prototype.methodName = function () {
+nodeList.prototype.calcRange = function () {
   this.areas = {min: 1000, max: 0}
   this.rooms = {min: 1000, max: 0}
 
@@ -33,6 +33,38 @@ nodeList.prototype.methodName = function () {
         this.areas.max = this.nodes[i].max
     }
   }
+}
+
+nodeList.prototype.detUnknown = function () {
+    this.calcRange()
+
+    for(var x in this.nodes) {
+        if(!this.nodes[i].type) {
+            this.nodes[x].refugees = []
+            for(var y in this.nodes) {
+                if(!this.nodes[i].type) {
+                    this.nodes[x].refugees.push(new node(this.nodes[y]))
+                }
+            }
+        this.nodes[x].measureDist(this.areas, this.rooms)
+        this.nodes[x].sortByDist()
+        this.nodes[x].guessType(this.mysterypoint)
+        }
+    }
+}
+
+nodeList.prototype.measureDist = function (areas, rooms) {
+    var areasRange = areas.max - areas.min,
+        roomsRange = rooms.max - rooms.min
+
+    for(var x in this.refugees) {
+        var refugee = this.refugees[x],
+            delArea = refugee.areas - this.areas
+            delRoom = refugee.rooms - this.rooms
+
+        delArea = (delArea/areasRange)
+        delRoom = (delRoom/roomsRange)
+    }
 }
 
 var test = {first: "fargument", second: "sargument"}
