@@ -4,7 +4,7 @@
 */
 
 var node = function (foo) {
-  for(var key in foo) {
+  for(let key in foo) {
     this[key] = foo[key]
     console.log(this[key])
   }
@@ -19,7 +19,7 @@ nodeList.prototype.calcRange = function () {
   this.areas = {min: 1000, max: 0}
   this.rooms = {min: 1000, max: 0}
 
-  for(var i in this.nodes) {
+  for(let i in this.nodes) {
     if(this.nodes[i].rooms < this.rooms.min) {
         this.rooms.min = this.nodes[i].rooms
     }
@@ -38,7 +38,7 @@ nodeList.prototype.calcRange = function () {
 nodeList.prototype.detUnknown = function () {
     this.calcRange()
 
-    for(var x in this.nodes) {
+    for(let x in this.nodes) {
         if(!this.nodes[i].type) {
             this.nodes[x].refugees = []
             for(var y in this.nodes) {
@@ -54,17 +54,45 @@ nodeList.prototype.detUnknown = function () {
 }
 
 nodeList.prototype.measureDist = function (areas, rooms) {
-    var areasRange = areas.max - areas.min,
+    let areasRange = areas.max - areas.min,
         roomsRange = rooms.max - rooms.min
 
-    for(var x in this.refugees) {
-        var refugee = this.refugees[x],
+    for(let x in this.refugees) {
+        let refugee = this.refugees[x],
             delArea = refugee.areas - this.areas
             delRoom = refugee.rooms - this.rooms
 
         delArea = (delArea/areasRange)
         delRoom = (delRoom/roomsRange)
     }
+}
+
+nodeList.prototype.sortByDist = function () {
+    this.nodes.sort(function (a, b) {
+        return a.distance - b.distance
+    })
+}
+
+nodeList.prototype.guessType = function (mysteryvalue) {
+    let types = {}
+
+    for(let i in this.nodes.slice(0, mysteryvalue)) {
+        if(!types[nodes.type]) {
+            types[nodes.type] = 0
+        }
+        types[nodes.type] += 1
+    }
+
+    let guess = {type: false, count: 0}
+    for(let type in types) {
+        if(types[type] > guess[type]) {
+            guess.type = type
+            guess.count = types[type]
+        }
+    }
+
+    this.guess = guess
+    return types
 }
 
 var test = {first: "fargument", second: "sargument"}
