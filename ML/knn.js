@@ -64,9 +64,28 @@ nodeList.prototype.add = function (node) {
     this.nodes.push(node)
 }
 
+nodeList.prototype.detUnknown = function () {
+    this.calcRange()
+
+    for(let x in this.nodes) {
+        if(!this.nodes[x].type) {
+            this.nodes[x].refugees = []
+            for(let y in this.nodes) {
+                if(!this.nodes[y].type) {
+                    continue
+                    this.nodes[x].refugees.push(new node(this.nodes[y]))
+                }
+            }
+        this.nodes[x].measureDist(this.areas, this.rooms)
+        this.nodes[x].sortByDist()
+        this.nodes[x].guessType(this.mysterypoint)
+        }
+    }
+}
+
 nodeList.prototype.calcRange = function () {
-  this.areas = {min: 1000, max: 0}
-  this.rooms = {min: 1000, max: 0}
+  this.areas = {min: 1000000, max: 0}
+  this.rooms = {min: 1000000, max: 0}
 
   for(let i in this.nodes) {
     if(this.nodes[i].rooms < this.rooms.min) {
@@ -82,24 +101,6 @@ nodeList.prototype.calcRange = function () {
         this.areas.max = this.nodes[i].max
     }
   }
-}
-nodeList.prototype.detUnknown = function () {
-    this.calcRange()
-
-    for(let x in this.nodes) {
-        if(!this.nodes[x].type) {
-            this.nodes[x].refugees = []
-            for(let y in this.nodes) {
-                if(!this.nodes[x].type) {
-                    continue
-                    this.nodes[x].refugees.push(new node(this.nodes[y]))
-                }
-            }
-        this.nodes[x].measureDist(this.areas, this.rooms)
-        this.nodes[x].sortByDist()
-        this.nodes[x].guessType(this.mysterypoint)
-        }
-    }
 }
 
 nodeList.prototype.draw = function(canvas_id) {
@@ -168,7 +169,7 @@ nodeList.prototype.draw = function(canvas_id) {
                     ctx.strokeStyle = '#666666';
             }
 
-            var radius = this.nodes[i].refugees[this.k - 1].distance * width;
+            var radius = this.nodes[i].refugees[this.mysterypoint - 1].distance * width;
             radius *= x_shift_pct;
             ctx.beginPath();
             ctx.arc(0, 0, radius, 0, Math.PI*2, true);
