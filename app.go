@@ -4,7 +4,6 @@ import (
     "os"
     "log"
     "fmt"
-    "net/url"
     "net/http"
 )
 
@@ -23,6 +22,14 @@ func webhookHandler(rw http.ResponseWriter, r *http.Request) {
     }
     if r.Method == "POST" {
         postWebhook(rw, r)
+    }
+}
+
+func tokenVerification(rw http.ResponseWriter, r *http.Request) {
+    if r.URL.Query().Get("hub.verify_token") == VTKN {
+        log.Print("Token verified")
+    } else {
+        log.Print("Dude there's something fishy going on")
     }
 }
 
