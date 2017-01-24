@@ -1,4 +1,4 @@
-/*
+ssh /*
 * felix on messenger
 * Akhil Pandey
 */
@@ -40,8 +40,18 @@ function sendMsg (reqId, msg) {
     callSendAPI(msgData);
 }
 
-function sendGenericMessage(recipientId) {
-    console.log("lol");
+function sendReportMessage(recipientId) {
+    var msgData = {
+        recipient: {
+            id: recipientId
+        },
+        message: {
+            text: "Hello master Akhil, good to see you",
+            metadata: "DEV_META_DATA"
+        }
+    };
+
+    console.log(recipientId)
 }
 
 
@@ -111,8 +121,8 @@ function receiveMessage(event) {
 
     if(messageText) {
         switch (messageText) {
-            case 'generic':
-            sendGenericMessage(senderID);
+            case 'report' :
+            sendReportMessage(senderID)
             break;
 
             default:
