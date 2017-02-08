@@ -27,17 +27,42 @@ if(!(APP_SECRET && VAL_TOKEN && ACC_TOKEN && SER_URL)) {
 
 // define the message handlers
 function sendMsg (reqId, msg) {
-    let msgData = {
-        recipient: {
-            id: reqId
-        },
-        message: {
-            text: msg,
-            metadata: "DEV_META_DATA"
+    if (reqId == c.felix_fb.api_akhilid) {
+        if (msg.startsWith("Hi") || msg.startsWith("Hello")) {
+            let time = new Date().getHours()
+            let text = "";
+            if (time >= 8 && time < 12) {
+                text = "Good morning, master Akhil how may i help you ?"
+            } else if (time >= 12 && time < 15) {
+                text = "Good afternoon master, felix at your service"
+            } else if (time > 15 && time < 19) {
+                text = "Good evening master Akhil, hope it has been a good day"
+            } else {
+                text = "Hello master Akhil, how may i be of help to you ?"
+            }
+            let msgData = {
+                recipient: {
+                    id: reqId
+                },
+                message: {
+                    text: text,
+                    metadata: "DEV_META_DATA_PING_MSG"
+                }
+            };
+            callSendAPI(msgData);
         }
-    };
-
-    callSendAPI(msgData);
+    } else {
+        let msgData = {
+            recipient: {
+                id: reqId
+            },
+            message: {
+                text: msg,
+                metadata: "DEV_META_DATA"
+            }
+        };
+        callSendAPI(msgData);
+    }
 }
 
 function sendReportMessage(recipientId) {
@@ -141,7 +166,7 @@ function receiveMessage(event) {
             sendMsg(senderID, messageText);
         }
     } else if (messageAttachments) {
-        sendTextMessage(senderID, "okay");
+        sendMsg(senderID, "Oops, i currently cannot support Stickers :(");
     }
 }
 
