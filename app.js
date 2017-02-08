@@ -1,4 +1,4 @@
-ssh /*
+/*
 * felix on messenger
 * Akhil Pandey
 */
@@ -27,7 +27,7 @@ if(!(APP_SECRET && VAL_TOKEN && ACC_TOKEN && SER_URL)) {
 
 // define the message handlers
 function sendMsg (reqId, msg) {
-    var msgData = {
+    let msgData = {
         recipient: {
             id: reqId
         },
@@ -41,22 +41,34 @@ function sendMsg (reqId, msg) {
 }
 
 function sendReportMessage(recipientId) {
-    var msgData = {
-        recipient: {
-            id: recipientId
-        },
-        message: {
-            text: "Hello master Akhil, good to see you",
-            metadata: "DEV_META_DATA"
-        }
-    };
-
-    console.log(recipientId)
+    if (recipientId == c.felix_fb.api_akhilid) {
+        let msgData = {
+            recipient: {
+                id: recipientId
+            },
+            message: {
+                text: "Hello master Akhil, good to see you",
+                metadata: "DEV_META_DATA_MASTER"
+            }
+        };
+        callSendAPI(msgData);
+    } else {
+        let msgData = {
+            recipient: {
+                id: recipientId
+            },
+            message: {
+                text: "Hello there, you cannot ask me to report. :P",
+                metadata: "DEV_META_DATA_REPORT_USER"
+            }
+        };
+        callSendAPI(msgData);
+    }
 }
 
 
 function callSendAPI(msgData) {
-    r({
+    r ({
         uri: c.felix_fb.api_url,
         qs: {access_token: ACC_TOKEN},
         method: 'POST',
@@ -66,7 +78,7 @@ function callSendAPI(msgData) {
             var recipientId = body.recipient_id;
             var messageId = body.message_id;
 
-            if(messageId) {
+            if (messageId) {
                 console.log("Message sent to %s", recipientId)
             } else {
                 console.log("Called the send Send API method for %s", recipientId)
@@ -80,7 +92,7 @@ function callSendAPI(msgData) {
 function verifyRequestSignature(req, res, buf) {
     var signature = req.headers['x-hub-signature'];
 
-    if(!signature) {
+    if (!signature) {
         console.error("Couldn't validate the signature")
     } else {
         var elements = signature.split('=')
@@ -110,7 +122,7 @@ function receiveMessage(event) {
     var messageAttachments = message.attachments;
     var quickReply = message.quick_reply;
 
-    if(isEcho) {
+    if (isEcho) {
         console.log(messageId)
         sendMsg(senderID, "hello there i've heard you");
     } else if(quickReply) {
@@ -119,7 +131,7 @@ function receiveMessage(event) {
         return;
     }
 
-    if(messageText) {
+    if (messageText) {
         switch (messageText) {
             case 'report' :
             sendReportMessage(senderID)
@@ -140,7 +152,7 @@ felix.get('/', function (req, res) {
 
 //send and receive webhooks
 felix.get('/facebook', function (req, res) {
-    if(req.query['hub.mode'] === 'subscribe' && req.query['hub.verify_token'] === VAL_TOKEN) {
+    if (req.query['hub.mode'] === 'subscribe' && req.query['hub.verify_token'] === VAL_TOKEN) {
         res.status(200).send(req.query['hub.challenge']);
     }
     else {
@@ -152,7 +164,7 @@ felix.get('/facebook', function (req, res) {
 felix.post('/facebook', function (req, res) {
     var data = req.body;
 
-    if(data.object == 'page') {
+    if (data.object == 'page') {
         data.entry.forEach(function (pageEntry) {
             var pageID = pageEntry.id;
             var timeOfEvent = pageEntry.time;
