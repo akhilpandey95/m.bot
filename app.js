@@ -28,7 +28,7 @@ if(!(APP_SECRET && VAL_TOKEN && ACC_TOKEN && SER_URL)) {
 // define the message handlers
 function sendMsg (reqId, msg) {
     if (reqId == c.felix_fb.api_akhilid) {
-        if (msg.startsWith("Hi") || msg.startsWith("Hello")) {
+        if (msg.toLowerCase().startsWith("hi") || msg.toLowerCase().startsWith("hello")) {
             let time = new Date().getHours()
             let text = "";
             if (time >= 8 && time < 12) {
@@ -46,6 +46,17 @@ function sendMsg (reqId, msg) {
                 },
                 message: {
                     text: text,
+                    metadata: "DEV_META_DATA_PING_MSG"
+                }
+            };
+            callSendAPI(msgData);
+        } else {
+            let msgData = {
+                recipient: {
+                    id: reqId
+                },
+                message: {
+                    text: msg,
                     metadata: "DEV_META_DATA_PING_MSG"
                 }
             };
