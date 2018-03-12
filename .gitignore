@@ -17,7 +17,12 @@ tramp
 .\#*
 
 #logs
+yarn.lock
 *.log
+*.yml
 
 #pids
 *.pid
+
+# env variable
+.env
