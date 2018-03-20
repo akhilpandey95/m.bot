@@ -137,7 +137,7 @@ var ConversationPanel = (function() {
           'children': [{
             // <div class='from-user/from-watson latest'>
             'tagName': 'div',
-            'classNames': [(isUser ? 'from-user' : 'from-watson'), 'latest', ((messageArray.length === 0) ? 'top' : 'sub')],
+            'classNames': ['from-user', 'latest', ((messageArray.length === 0) ? 'top' : 'sub')],
             'children': [{
               // <div class='message-inner'>
               'tagName': 'div',
@@ -146,6 +146,24 @@ var ConversationPanel = (function() {
                 // <p>{messageText}</p>
                 'tagName': 'p',
                 'text': currentText
+              }]
+            }]
+          }, {
+            // <div class='from-user/from-watson latest'>
+            'tagName': 'div',
+            'classNames': ['from-watson', 'latest', ((messageArray.length === 0) ? 'top' : 'sub')],
+            'children': [{
+              // <div class='message-inner'>
+              'tagName': 'div',
+              'classNames': ['message-inner'],
+              'children': [{
+                // <p>{messageText}</p>
+                'tagName': 'p',
+                'text': currentText
+              }, {
+                'tagName': 'i',
+                'classNames': ['material-icons', 'speak'],
+                'text': "bubble_chart"
               }]
             }]
           }]

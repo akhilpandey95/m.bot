@@ -205,12 +205,50 @@ div {
   width: 15rem;
   max-width: 90%;
   padding-left: 1.525rem;
-  margin-bottom: -0.125rem;
+  margin-bottom: -3.125rem;
   margin-left: 1rem;
   font-family: Helvetica Neue for IBM, Helvetica Neue, Helvetica, Arial, sans-serif;
   border-top-style: inherit;
   border-left-style: inherit;
   border-right-style: inherit;
+}
+
+.upload {
+  position: relative;
+  display: inline;
+  overflow: hidden;
+  margin-left: 20px;
+  margin-bottom: -2.525rem;
+  width: 40px;
+  height: 35px;
+  border-width: 0;
+  outline: none;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+  background-color: #a5a5a5;
+  color: #ecf0f1;  
+  transition: background-color .3s;
+}
+
+.volume {
+  position: relative;
+  display: inline;
+  overflow: hidden;
+  margin-left: 10px;
+  margin-bottom: -2.525rem;
+  width: 40px;
+  height: 35px;
+  border-width: 0;
+  outline: none;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+  background-color: #a5a5a5;
+  color: #ecf0f1;  
+  transition: background-color .3s;
+}
+
+.speak {
+    padding-left: 15px;
 }
 
 ::-webkit-input-placeholder {
