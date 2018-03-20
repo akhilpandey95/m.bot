@@ -71,39 +71,6 @@ var ConversationPanel = (function() {
       document.body.appendChild(dummy);
     }
 
-    function adjustInput() {
-      if (input.value === '') {
-        // If the input box is empty, remove the underline
-        input.classList.remove('underline');
-        input.setAttribute('style', 'width:' + '100%');
-        input.style.width = '100%';
-      } else {
-        // otherwise, adjust the dummy text to match, and then set the width of
-        // the visible input box to match it (thus extending the underline)
-        input.classList.add('underline');
-        var txtNode = document.createTextNode(input.value);
-        ['font-size', 'font-style', 'font-weight', 'font-family', 'line-height',
-          'text-transform', 'letter-spacing'].forEach(function(index) {
-            dummy.style[index] = window.getComputedStyle(input, null).getPropertyValue(index);
-          });
-        dummy.textContent = txtNode.textContent;
-
-        var padding = 0;
-        var htmlElem = document.getElementsByTagName('html')[0];
-        var currentFontSize = parseInt(window.getComputedStyle(htmlElem, null).getPropertyValue('font-size'), 10);
-        if (currentFontSize) {
-          padding = Math.floor((currentFontSize - minFontSize) / (maxFontSize - minFontSize)
-            * (maxPadding - minPadding) + minPadding);
-        } else {
-          padding = maxPadding;
-        }
-
-        var widthValue = ( dummy.offsetWidth + padding) + 'px';
-        input.setAttribute('style', 'width:' + widthValue);
-        input.style.width = widthValue;
-      }
-    }
-
     // Any time the input changes, or the window resizes, adjust the size of the input box
     input.addEventListener('input', adjustInput);
     window.addEventListener('resize', adjustInput);
