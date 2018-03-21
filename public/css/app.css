@@ -160,6 +160,10 @@ div {
   border-top-right-radius: 1.25rem;
 }
 
+.from-user i {
+    display: none;
+}
+
 .from-watson .message-inner {
   position: relative;
   border-radius: 1.5625rem;
@@ -249,6 +253,10 @@ div {
 
 .speak {
     padding-left: 15px;
+}
+
+.hear {
+    display: none;
 }
 
 ::-webkit-input-placeholder {
