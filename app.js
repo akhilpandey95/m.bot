@@ -1,44 +1,73 @@
-'use strict';
+/* This Source Code Form is subject to the terms of the MIT
+* License. If a copy of the same was not distributed with this
+* file, You can obtain one at
+* https://github.com/akhilpandey95/m.bot/blob/master/LICENSE.
+*/
 
-var fs = require('fs');
-var express = require('express');
-var bodyParser = require('body-parser');
-var watson = require('watson-developer-cloud');
-var TextToSpeechV1 = require('watson-developer-cloud/text-to-speech/v1');
+const f = require('fs');
+const e = require('express');
+const c = require('cluster');
+const bp = require('body-parser');
+const cp = require('cookie-parser');
+const nc = require('os').cpus().length;
+const wdc = require('watson-developer-cloud');
+const tts = require('watson-developer-cloud/text-to-speech/v1');
 
-var app = express();
+if (c.isMaster) {
+  process.stdout.write(`the master node ${process.pid} is up`);
 
-app.use(express.static('./public'));
-app.use(bodyParser.json());
-
-var conversation = new watson.ConversationV1({
-  username: process.env.CONVERSATION_USERNAME,
-  password: process.env.CONVERSATION_PASSWORD,
-  version_date: '2018-02-16'
-});
-
-app.post('/api/message', function(req, res) {
-  var workspace = process.env.WORKSPACE_ID || '<workspace-id>';
-  if (!workspace || workspace === '<workspace-id>') {
-    return res.json({
-      'output': {
-        'text': 'The app has not been configured with a <b>WORKSPACE_ID</b> environment variable. Please refer to the ' + '<a href="https://github.com/watson-developer-cloud/conversation-simple">README</a> documentation on how to set this variable. <br>' + 'Once a workspace has been defined the intents may be imported from ' + '<a href="https://github.com/watson-developer-cloud/conversation-simple/blob/master/training/car_workspace.json">here</a> in order to get a working application.'
-      }
-    });
+  for (let i = 0; i < nc; i++) {
+    c.fork();
   }
-  var payload = {
-    workspace_id: workspace,
-    context: req.body.context || {},
-    input: req.body.input || {}
-  };
 
-  conversation.message(payload, function(err, data) {
-    if (err) {
-      return res.status(err.code || 500).json(err);
-    }
-    return res.json(updateMessage(payload, data));
+  c.on('exit', (worker, code, signal) => {
+    process.stdout.write(`the worker node ${worker.process.pid} is no more\n`);
+    c.fork();
   });
-});
+} else {
+  let app = process.env.port || 3000;
+  let app = e();
+
+  var app = express();
+
+  app.use(express.static('./public'));
+  app.use(bodyParser.json());
+
+  var conversation = new watson.ConversationV1({
+    username: process.env.CONVERSATION_USERNAME,
+    password: process.env.CONVERSATION_PASSWORD,
+    version_date: '2018-02-16'
+  });
+
+  app.post('/api/message', function(req, res) {
+    var workspace = process.env.WORKSPACE_ID || '<workspace-id>';
+    if (!workspace || workspace === '<workspace-id>') {
+      return res.json({watson-developer-cloud/text-to-speech/v1
+        'output': {
+          'text': 'The app has not been configured with a <b>WORKSPACE_ID</b> environment variable. Please refer to the ' + '<a href="https://github.com/watson-developer-cloud/conversation-simple">README</a> documentation on how to set this variable. <br>' + 'Once a workspace has been defined the intents may be imported from ' + '<a href="https://github.com/watson-developer-cloud/conversation-simple/blob/master/training/car_workspace.json">here</a> in order to get a working application.'
+        }
+      });
+    }
+    var payload = {
+      workspace_id: workspace,
+      context: req.body.context || {},
+      input: req.body.input || {}
+    };
+
+    conversation.message(payload, function(err, data) {
+      if (err) {
+        return res.status(err.code || 500).json(err);
+      }
+      return res.json(updateMessage(payload, data));
+    });
+  });
+
+  app.use('/', router);
+
+  h.createServer(app).listen(port, () => {
+    process.stdout.write(`Felix master node is up on port 3000, pid: ${process.pid}`);
+  });
+}
 
 
 function updateMessage(input, response) {
@@ -81,5 +110,3 @@ function felix_invoke_tts(input) {
         console.log('Error:', error);
     }).pipe(fs.createWriteStream('felix.wav'));
 }
-
-module.exports = app;
