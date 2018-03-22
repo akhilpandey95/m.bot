@@ -4,25 +4,26 @@
 * https://github.com/akhilpandey95/m.bot/blob/master/LICENSE.
 */
 
-var fs = require('fs');
-var TextToSpeechV1 = require('watson-developer-cloud/text-to-speech/v1');
+const fs = require('fs');
+const config = require('../config');
+const TextToSpeechV1 = require('watson-developer-cloud/text-to-speech/v1');
 
 function felix_invoke_tts(input) {
     // declare the parameters
     var params_tts = {
         text: input,
-        voice: 'en-US_AllisonVoice',
+        voice: config.text_to_speech.tts_voice,
         accept: 'audio/flac'
     };
 
     // create a Text to speech object
     var text_to_speech = new TextToSpeechV1 ({
-        username: '28a44431-97fa-491f-b75f-267a719146dc',
-        password: 'Qa0H5hasvzJM'
+        username: config.text_to_speech.tts_uname,
+        password: config.text_to_speech.tts_pwd
     });
 
     // Pipe the synthesized text to a file.
-    text_to_speech.synthesize(params_tts).on('error', function(error) {
+    text_to_speech.synthesize(params_tts).on('error', (error) => {
         console.log('Error:', error);
     }).pipe(fs.createWriteStream('felix.flac'));
 

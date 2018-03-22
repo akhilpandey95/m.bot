@@ -1,5 +1,12 @@
-var fs = require('fs');
-var watson = require('watson-developer-cloud');
+/* This Source Code Form is subject to the terms of the MIT
+* License. If a copy of the same was not distributed with this
+* file, You can obtain one at
+* https://github.com/akhilpandey95/m.bot/blob/master/LICENSE.
+*/
+
+const fs = require('fs');
+const config = require('../config');
+const watson = require('watson-developer-cloud');
 
 function felix_invoke_assistant() {
     // declare the parameters
