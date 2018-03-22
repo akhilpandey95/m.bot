@@ -69,11 +69,3 @@ module.exports.text_to_speech = (input) => {
 
   return "success"fs
 };
-
-/*
- * @param1: input [string]
- *
- */
-module.exports.conversation = () => {
-  console.log("TBA");
-};
