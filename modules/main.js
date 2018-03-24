@@ -67,5 +67,5 @@ module.exports.text_to_speech = (input) => {
       return "fail"
   }).pipe(f.createWriteStream('felix.wav'));
 
-  return "success"fs
+  return "success";
 };
