@@ -14,7 +14,7 @@ const tts = require('watson-developer-cloud/text-to-speech/v1');
  *
  * returns: JSON object
  */
-module.exports.update_message = (input, response) => {
+let update_message = (input, response) => {
   // create a response JSON structure
   let res_text = null;
 
@@ -47,7 +47,7 @@ module.exports.update_message = (input, response) => {
  *
  * returns: file stream [? : "success" : "fail"]
  */
-module.exports.text_to_speech = (input) => {
+let text_to_speech = (input) => {
   // declare the parameters
   let params_tts = {
       text: input,
@@ -69,3 +69,9 @@ module.exports.text_to_speech = (input) => {
 
   return "success";
 };
+
+// export the modules
+module.exports = {
+  update_message: update_message,
+  text_to_speech: text_to_speech
+}

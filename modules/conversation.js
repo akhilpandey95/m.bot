@@ -9,7 +9,7 @@ const m = require('./main');
 const c = require('../config');
 const w = require('watson-developer-cloud');
 
-module.exports.list_dialog_nodes = () => {
+let list_dialog_nodes = () => {
     // declare the parameters
     let params_conv = {
         workspace_id: c.watson_assistant.watson_wid
@@ -30,7 +30,7 @@ module.exports.list_dialog_nodes = () => {
             return JSON.stringify(response, null, 2);
         }
     });
-};
+}
 
 /*
  * @param1: input [string]
@@ -38,7 +38,7 @@ module.exports.list_dialog_nodes = () => {
  *
  * returns: JSON response [? : "success" : "fail"]
  */
-module.exports.send_message_to_watson = (context, input, response) => {
+let send_message_to_watson = (context, input, response) => {
   // declare the parameters
   let workspace = c.watson_assistant.watson_wid || '<workspace-id>';
 
@@ -69,4 +69,10 @@ module.exports.send_message_to_watson = (context, input, response) => {
     }
     return response.json(m.update_message(payload_params, data));
   });
-};
+}
+
+// export the modules
+module.exports = {
+  list_dialog_nodes: list_dialog_nodes,
+  send_message_to_watson: send_message_to_watson
+}
