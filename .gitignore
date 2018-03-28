@@ -18,6 +18,7 @@ tramp
 
 #logs
 yarn.lock
+package-lock.json
 *.log
 *.yml
 
@@ -30,3 +31,4 @@ voice/*.wav
 
 # env variable
 .env
+
