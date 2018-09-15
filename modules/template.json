@@ -1,0 +1,58 @@
+{
+  "intents": [
+    {
+      "intent": "greetings",
+      "confidence": 1
+    }
+  ],
+  "entities": [],
+  "input": {
+    "text": "hi"
+  },
+  "output": {
+    "generic": [
+      {
+        "response_type": "text",
+        "text": "Hello! I'm here to help you. Just say the word."
+      }
+    ],
+    "text": [
+      "Hello! I'm here to help you. Just say the word."
+    ],
+    "nodes_visited": [
+      "node_7_1468608329601"
+    ],
+    "log_messages": []
+  },
+  "context": {
+    "conversation_id": "0c98c27e-175b-46e3-a71a-aa6064660447",
+    "system": {
+      "dialog_stack": [
+        {
+          "dialog_node": "root"
+        }
+      ],
+      "dialog_turn_counter": 2,
+      "dialog_request_counter": 2,
+      "_node_output_map": {
+        "Start And Initialize Context": [
+          0,
+          0
+        ]
+      },
+      "branch_exited": true,
+      "branch_exited_reason": "completed"
+    },
+    "AConoff": "off",
+    "lightonoff": "off",
+    "musiconoff": "off",
+    "appl_action": "",
+    "heateronoff": "off",
+    "volumeonoff": "off",
+    "wipersonoff": "off",
+    "default_counter": 0,
+    "previous_cuisine": "",
+    "previous_restaurant_date": "",
+    "previous_restaurant_time": ""
+  }
+}

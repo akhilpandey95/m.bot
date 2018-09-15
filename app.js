@@ -42,7 +42,7 @@ if (c.isMaster) {
 
   // write the API rules
   router.post('/api/message', (req, res) => {
-    cnv.send_message_to_watson(req.body.input, req.body.input, res);
+    cnv.send_message(req.body.input, res);
   });
 
   router.post('/api/fileUpload', (req, res) => {
